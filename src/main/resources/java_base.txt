@@ -1,0 +1,92 @@
+[{
+"name": "Cover up traces",
+"group": "Java base",
+"description": "Cover up your traces on server by shuffling the logs in random order",
+"code": "package ale.java_training;
+
+public class LogShuffler {
+    
+    public static void shuffle(String[] logs) {
+        // your shuffle code goes here
+    }
+}",
+"info":"
+#### Useful information
+
+Here is a [Fisher-Yates shuffle algoriythm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle):
+
+```python
+-- To shuffle an array a of n elements (indices 0..n-1):
+for i from n-1 downto 1 do
+     j <- random integer such that 0 <= j <= i
+     exchange a[j] and a[i]
+```
+
+You can obtain a random int by doing
+```java
+    Random random = new Random();
+    random.nextInt(limit);
+```
+where `limit` is some integer value to limit random value between 0 and `limit` (exclusive)"
+},
+{
+"name": "Richie Rich",
+"group": "Java base",
+"description": "Find richest and poorest bank account",
+"code": "package ale.java_training;
+
+public class AccountSearcher {
+    
+    public static int richest(int[] accounts) {
+        // find the richest
+    }
+
+    public static int poorest(int[] accounts) {
+        // find the poorest
+    }
+}",
+"info": "
+#### Useful information
+
+If you can't find max or min value in array, you should return `Integer.MIN_VALUE` or `Integer.MAX_VALUE` respectively"
+},
+{
+"name": "Maximize profit",
+"group": "Java base",
+"description": "Calculate the profit of hacking series of bank accounts",
+"code": "package ale.java_training;
+
+public class HackUtils {
+    
+    public static int profitOf(int[] accounts, int first, int last) {
+      // calc the sum of hacking accounts
+    }
+}"
+},
+{
+"name": "* Strong your password",
+"group": "Java base",
+"description": "Make your password harder to hack: upper case first letter and add random number to the end",
+"code": "package ale.java_training;
+
+public class HackUtils {
+    
+    public static String makeStronger(String password) {
+      // qwerty -> Qwerty9
+    }
+}
+"},
+{
+"name": "* Find account",
+"group": "Java base",
+"description": "You have a piece of some one card. You need to find an account in the bank database.",
+"code": "package ale.java_training;
+
+public class AccountSearcher {
+    
+    public static String findAccountByPiece(String[] accounts, String cardPiece) {
+        // if piece is \"40392\" and list is [\"13049523\", \"4912095\", \"94919571\", \"64039217\", \"31920168\"]. shoud return \"64039217\"
+    }
+}
+"}
+]
