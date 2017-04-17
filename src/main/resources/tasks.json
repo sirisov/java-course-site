@@ -1,4 +1,17 @@
 [{
+"name": "Count hackable objects",
+"group": "Java base",
+"description": "Count how much object you can hack",
+"code": "package ale.java_training;
+
+public class HackUtils {
+    
+    public static int countHackable(boolean[] hackable) {
+        // return count
+    }
+}"
+},
+{
 "name": "Cover up traces",
 "group": "Java base",
 "description": "Cover up your traces on server by shuffling the logs in random order",
@@ -6,7 +19,7 @@
 
 public class LogShuffler {
     
-    public static void shuffle(String[] logs) {
+    public static void shuffle(String... logs) {
         // your shuffle code goes here
     }
 }",
@@ -51,7 +64,7 @@ public class AccountSearcher {
 If you can't find max or min value in array, you should return `Integer.MIN_VALUE` or `Integer.MAX_VALUE` respectively"
 },
 {
-"name": "Maximize profit",
+"name": "Find profit",
 "group": "Java base",
 "description": "Calculate the profit of hacking series of bank accounts",
 "code": "package ale.java_training;
@@ -60,6 +73,19 @@ public class HackUtils {
     
     public static int profitOf(int[] accounts, int first, int last) {
       // calc the sum of hacking accounts
+    }
+}"
+},
+{
+"name": "* Maximize profit",
+"group": "Java base",
+"description": "Find maximum profit of hacking series of bank accounts",
+"code": "package ale.java_training;
+
+public class HackUtils {
+    
+    public static int profitOf(int[] accounts, int n) {
+      // find maximum sum of n series
     }
 }"
 },
