@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.toList;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
+import static spark.Spark.post;
 
 import static com.diffplug.common.base.Errors.rethrow;
 
@@ -23,6 +24,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import javax.util.streamex.StreamEx;
 
 import spark.ModelAndView;
 import spark.Spark;
@@ -76,5 +79,9 @@ public class Server {
     port(Integer.valueOf(System.getenv().getOrDefault("PORT", "8080")));
     Spark.staticFileLocation("/public");
     get("/", (req, res) -> new ModelAndView(getResources(), "index.ftl"), new FreeMarkerEngine());
+    post("/code/:id", (req, res) -> {
+      Task task = StreamEx.ofValues(((Map<String, List<Task>>)getResources().get("tasks"))).flatCollection(l -> l).findFirst(t -> t.getId().equals(req.params(":id"))).get();
+      return TestRunner.run(task, req.body());
+    });
   }
 }

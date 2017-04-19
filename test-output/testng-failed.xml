@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Command line suite]">
+  <test name="Command line test(failed)">
+    <classes>
+      <class name="ale.java_training.CountHackableTest">
+        <methods>
+          <include name="countHackableTest_random"/>
+          <include name="countHackableTest_empty"/>
+          <include name="countHackableTest_single_false"/>
+          <include name="countHackableTest_single_true"/>
+          <include name="countHackableTest_simple"/>
+        </methods>
+      </class> <!-- ale.java_training.CountHackableTest -->
+    </classes>
+  </test> <!-- Command line test(failed) -->
+</suite> <!-- Failed suite [Command line suite] -->

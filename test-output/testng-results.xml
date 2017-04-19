@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="5" ignored="0" total="5" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Command line suite" duration-ms="11" started-at="2017-04-19T10:14:49Z" finished-at="2017-04-19T10:14:49Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="11" started-at="2017-04-19T10:14:49Z" finished-at="2017-04-19T10:14:49Z">
+      <class name="ale.java_training.CountHackableTest">
+        <test-method status="FAIL" signature="countHackableTest_empty()[pri:0, instance:ale.java_training.CountHackableTest@68fd9be2]" name="countHackableTest_empty" duration-ms="5" started-at="2017-04-19T13:14:49Z" finished-at="2017-04-19T13:14:49Z">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Uncompilable source code - Erroneous tree type: <any>]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Uncompilable source code - Erroneous tree type: <any>
+	at ale.java_training.CountHackableTest.countHackableTest_empty(CountHackableTest.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:104)
+	at org.testng.internal.InvokeMethodRunnable.runOne(InvokeMethodRunnable.java:54)
+	at org.testng.internal.InvokeMethodRunnable.run(InvokeMethodRunnable.java:44)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- countHackableTest_empty -->
+        <test-method status="FAIL" signature="countHackableTest_random()[pri:0, instance:ale.java_training.CountHackableTest@68fd9be2]" name="countHackableTest_random" duration-ms="1" started-at="2017-04-19T13:14:49Z" finished-at="2017-04-19T13:14:49Z">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Uncompilable source code - Erroneous tree type: <any>]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Uncompilable source code - Erroneous tree type: <any>
+	at ale.java_training.CountHackableTest.countHackableTest_random(CountHackableTest.java:33)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:104)
+	at org.testng.internal.InvokeMethodRunnable.runOne(InvokeMethodRunnable.java:54)
+	at org.testng.internal.InvokeMethodRunnable.run(InvokeMethodRunnable.java:44)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- countHackableTest_random -->
+        <test-method status="FAIL" signature="countHackableTest_simple()[pri:0, instance:ale.java_training.CountHackableTest@68fd9be2]" name="countHackableTest_simple" duration-ms="1" started-at="2017-04-19T13:14:49Z" finished-at="2017-04-19T13:14:49Z">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Uncompilable source code - Erroneous tree type: <any>]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Uncompilable source code - Erroneous tree type: <any>
+	at ale.java_training.CountHackableTest.countHackableTest_simple(CountHackableTest.java:16)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:104)
+	at org.testng.internal.InvokeMethodRunnable.runOne(InvokeMethodRunnable.java:54)
+	at org.testng.internal.InvokeMethodRunnable.run(InvokeMethodRunnable.java:44)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- countHackableTest_simple -->
+        <test-method status="FAIL" signature="countHackableTest_single_true()[pri:0, instance:ale.java_training.CountHackableTest@68fd9be2]" name="countHackableTest_single_true" duration-ms="1" started-at="2017-04-19T13:14:49Z" finished-at="2017-04-19T13:14:49Z">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Uncompilable source code - Erroneous tree type: <any>]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Uncompilable source code - Erroneous tree type: <any>
+	at ale.java_training.CountHackableTest.countHackableTest_single_true(CountHackableTest.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:104)
+	at org.testng.internal.InvokeMethodRunnable.runOne(InvokeMethodRunnable.java:54)
+	at org.testng.internal.InvokeMethodRunnable.run(InvokeMethodRunnable.java:44)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- countHackableTest_single_true -->
+        <test-method status="FAIL" signature="countHackableTest_single_false()[pri:0, instance:ale.java_training.CountHackableTest@68fd9be2]" name="countHackableTest_single_false" duration-ms="0" started-at="2017-04-19T13:14:49Z" finished-at="2017-04-19T13:14:49Z">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Uncompilable source code - Erroneous tree type: <any>]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Uncompilable source code - Erroneous tree type: <any>
+	at ale.java_training.CountHackableTest.countHackableTest_single_false(CountHackableTest.java:24)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:104)
+	at org.testng.internal.InvokeMethodRunnable.runOne(InvokeMethodRunnable.java:54)
+	at org.testng.internal.InvokeMethodRunnable.run(InvokeMethodRunnable.java:44)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- countHackableTest_single_false -->
+      </class> <!-- ale.java_training.CountHackableTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>

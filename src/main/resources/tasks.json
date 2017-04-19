@@ -1,20 +1,28 @@
 [{
+"id": "jb_1",
 "name": "Count hackable objects",
 "group": "Java base",
 "description": "Count how much object you can hack",
+"package_name": "ale.java_training",
+"test_name": "CountHackableTest",
+"class_name": "HackUtils",
 "code": "package ale.java_training;
 
 public class HackUtils {
     
-    public static int countHackable(boolean[] hackable) {
+    public static int countHackable(Boolean[] hackable) {
         // return count
     }
 }"
 },
 {
+"id": "jb_2",
 "name": "Cover up traces",
 "group": "Java base",
 "description": "Cover up your traces on server by shuffling the logs in random order",
+"package_name": "ale.java_training",
+"test_name": "LogShufflerTest",
+"class_name": "LogShuffler",
 "code": "package ale.java_training;
 
 public class LogShuffler {
@@ -43,9 +51,13 @@ You can obtain a random int by doing
 where `limit` is some integer value to limit random value between 0 and `limit` (exclusive)"
 },
 {
+"id": "jb_3",
 "name": "Richie Rich",
 "group": "Java base",
 "description": "Find richest and poorest bank account",
+"package_name": "ale.java_training",
+"test_name": "MinMaxTest",
+"class_name": "AccountSearcher",
 "code": "package ale.java_training;
 
 public class AccountSearcher {
@@ -64,9 +76,13 @@ public class AccountSearcher {
 If you can't find max or min value in array, you should return `Integer.MIN_VALUE` or `Integer.MAX_VALUE` respectively"
 },
 {
+"id": "jb_4",
 "name": "Find profit",
 "group": "Java base",
 "description": "Calculate the profit of hacking series of bank accounts",
+"package_name": "ale.java_training",
+"test_name": "FindProfitTest",
+"class_name": "HackUtils",
 "code": "package ale.java_training;
 
 public class HackUtils {
@@ -77,9 +93,13 @@ public class HackUtils {
 }"
 },
 {
+"id": "jb_5",
 "name": "* Maximize profit",
 "group": "Java base",
 "description": "Find maximum profit of hacking series of bank accounts",
+"package_name": "ale.java_training",
+"test_name": "MaximizeProfitTest",
+"class_name": "HackUtils",
 "code": "package ale.java_training;
 
 public class HackUtils {
@@ -90,9 +110,13 @@ public class HackUtils {
 }"
 },
 {
+"id": "jb_6",
 "name": "* Strong your password",
 "group": "Java base",
 "description": "Make your password harder to hack: upper case first letter and add random number to the end",
+"package_name": "ale.java_training",
+"test_name": "StrongPasswordTest",
+"class_name": "HackUtils",
 "code": "package ale.java_training;
 
 public class HackUtils {
@@ -103,9 +127,13 @@ public class HackUtils {
 }
 "},
 {
+"id": "jb_7",
 "name": "* Find account",
 "group": "Java base",
 "description": "You have a piece of some one card. You need to find an account in the bank database.",
+"package_name": "ale.java_training",
+"test_name": "FindAccountTest",
+"class_name": "AccountSearcher",
 "code": "package ale.java_training;
 
 public class AccountSearcher {

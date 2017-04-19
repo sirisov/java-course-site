@@ -36,7 +36,7 @@
             </li>
             <ul class="sub-menu collapse in" id="${group?replace(" "," ")}">
               <#list list as task>
-              <li><a href="#" data-information="${task.info!''}" data-description="${task.description}" data-name="${task.name?replace("* ", "")}" data-code='${task.code}'>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i> ${task.name?replace("*", "<i class='glyphicon glyphicon-star'></i>")}</a></li>
+              <li><a href="#" data-id="${task.id}" data-information="${task.info!''}" data-description="${task.description}" data-name="${task.name?replace("* ", "")}" data-code='${task.code}'>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i> ${task.name?replace("*", "<i class='glyphicon glyphicon-star'></i>")}</a></li>
               </#list>
             </ul>
             </#list>
@@ -60,14 +60,16 @@
             <form>
               <div class="form-group">
                 <span id="helpBlock" class="help-block">Description</span>
-                <textarea id="code_editor" class="form-control" rows="3"></textarea>  
+                <textarea id="code_editor" class="form-control" rows="3"></textarea>
+                <p/>
+                <div id="test_result"></div>
               </div>
               <div class="btn-group" role="group">
-                <button class="btn btn-primary" type="button" disabled id='code_test'>Test your code</button>
+                <button class="btn btn-primary" type="submit" id='code_test'>Test your code</button>
                 <button class="btn btn-default" type="button" id='code_reset'>Reset</button>
               </div>
             </form>
-            <p><!--Info--></p>
+            <p id="task_info"><!--Info--></p>
           </div>
           <div role="tabpanel" class="tab-pane" id="presentation_tab">
             <h4>Presentation</h4>
@@ -100,12 +102,50 @@
         var task = $(e.target);
         $('#training_tab h4').text(task.data('name'));
         $('#training_tab span').text(task.data('description'));
-        $('#training_tab p').html($('<div/>').html(task.data('information')));
+        $('#training_tab p#task_info').html($('<div/>').html(task.data('information')));
         $('#code_reset').on('click', function() {
+          $('#test').remove();
+          $('#compilation').remove();
           editor.getDoc().setValue(task.data('code'));
           editor.focus();
         });
-        editor.getDoc().setValue(task.data('code'));
+        $('#code_test').unbind('click');
+        $('#code_test').on('click', function() {
+          $('#test').remove();
+          $('#compilation').remove();
+          $.ajax({
+            type: "POST",
+            url: "/code/" + task.data('id'),
+            data: editor.getDoc().getValue(),
+            beforeSend: function() { 
+              $('#code_test').prop('disabled', true);
+              $('#code_test').text('Testing...');
+            },
+            success: function(msg) {
+              var res = JSON.parse(msg);
+              if (res["compilation"] === "error") {
+                $("#test_result").append('<div id="compilation" class="alert alert-danger" role="alert"><strong>Compilation failure!</strong><br/><br/><samp>' + res["message"].replace(/ /g, '&nbsp;').replace(/\r?\n/g, '<br />') + '</samp></div>');
+              } else if (res["compilation"] === "success") {
+                $("#test_result").append('<div id="compilation" class="alert alert-success" role="alert"><strong>Compilation succeeded!</strong><br/></div>');
+              }
+              if (res["test"] === "error") {
+                $("#test_result").append('<div id="test" class="alert alert-danger" role="alert"><strong>Run failure!</strong><br/><br/><samp>' + res["message"].replace(/ /g, '&nbsp;').replace(/\r?\n/g, '<br />') + '</samp></div>');
+              } else if (res["test"] === "failed") {
+                $("#test_result").append('<div id="test" class="alert alert-danger" role="alert"><strong>Some tests failed</strong><br/><br/>' + res["short"] + '<br/><pre>' + res["result"] + '</pre></div>');
+              } else if (res["test"] === "success") {
+                $("#test_result").append('<div id="test" class="alert alert-success" role="alert"><strong>All tests passed!</strong><br/></div>');
+              }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              if (jqXHR.status == 500) {
+                 $("#test_result").append('<div id="compilation" class="alert alert-danger" role="alert"><strong>' + $(new DOMParser().parseFromString(jqXHR.responseText, "text/html")).text() + '</strong><br/>Please contact site administrator</div>');
+              }
+            }
+          });            
+          $('#code_test').prop('disabled', false);
+          $('#code_test').text('Test your code');
+        });
+        $('#code_reset').trigger('click');
       })
       $('#presentations_menu > li > a').on('click', function(e) {
         $('#presentations_menu > li').removeClass('active');
