@@ -20,9 +20,8 @@ public class LogShufflerTest {
     if (!Arrays.asList(original).containsAll(Arrays.asList(shuffled))) {
       throw new AssertionError("Shuffled array doesn't contains the same elements as original");
     }
-    String[] first = Arrays.copyOf(shuffled, shuffled.length);
     LogShuffler.shuffle(original);
-    if (Arrays.equals(shuffled, first)) {
+    if (Arrays.equals(original, shuffled)) {
       throw new AssertionError("Shuffle should produce random order each run");
     }
   }

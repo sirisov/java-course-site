@@ -3,6 +3,7 @@ package com.alcatel_lucent.server_automation.java_course_server;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -33,14 +34,22 @@ public class TestRunner {
     try {
       URLClassLoader cl = new URLClassLoader(new URL[] {outDir.toURI().toURL()});
       Class<?> classToTest = CodeCompiler.compileClass(task.getPackage_name() + '.' + task.getClass_name(), code, outDir, cl);
+      Class<?> testClass = CodeCompiler.compileClass(task.getPackage_name() + '.' + task.getTest_name(), TEST_CLASS_DIR.toPath().resolve(task.getPackage_name().replace('.', File.separatorChar) + File.separatorChar + task.getTest_name() + ".java").toFile() , outDir, cl);
       jo.addProperty("compilation", "success");
       TestListenerAdapter tla = new TestListenerAdapter();
       TestNG testng = new TestNG();
       testng.setOutputDirectory(outDir.getPath());
-      Class<?> testClass = CodeCompiler.compileClass(task.getPackage_name() + '.' + task.getTest_name(), TEST_CLASS_DIR.toPath().resolve(task.getPackage_name().replace('.', File.separatorChar) + File.separatorChar + task.getTest_name() + ".java").toFile() , outDir, cl);
       testng.setTestClasses(new Class[] { testClass });
       testng.addListener(tla);
-      testng.run();
+      synchronized (System.out) {
+        PrintStream out = System.out;
+        try (OutputStream os = new ByteArrayOutputStream(); PrintStream sps = new PrintStream(os)) {
+          System.setOut(sps);
+          testng.run();
+          jo.addProperty("output", os.toString());
+        }
+        System.setOut(out);
+      }
       jo.addProperty("short", "Passed: " + tla.getPassedTests().size() + ", Failed: " + tla.getFailedTests().size() + ", Skipped: " + tla.getSkippedTests().size());
       if (!tla.getFailedTests().isEmpty() || !tla.getSkippedTests().isEmpty()) {
         jo.addProperty("test", "failed");
@@ -58,6 +67,7 @@ public class TestRunner {
           ps.println();
         });
         jo.addProperty("result", baos.toString());
+        ps.close();
       } else {
         jo.addProperty("test", "success");
       }

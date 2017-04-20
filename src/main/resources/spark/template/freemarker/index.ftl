@@ -105,15 +105,13 @@
         $('#training_tab span').text(task.data('description'));
         $('#training_tab p#task_info').html($('<div/>').html(task.data('information')));
         $('#code_reset').on('click', function() {
-          $('#test').remove();
-          $('#compilation').remove();
+          $('.alert').remove();
           editor.getDoc().setValue(task.data('code'));
           editor.focus();
         });
         $('#code_test').unbind('click');
         $('#code_test').on('click', function() {
-          $('#test').remove();
-          $('#compilation').remove();
+          $('.alert').remove();
           Cookies.set(task.data('id'), editor.getDoc().getValue());
           $.ajax({
             type: "POST",
@@ -129,6 +127,9 @@
                 $("#test_result").append('<div id="compilation" class="alert alert-danger" role="alert"><strong>Compilation failure!</strong><br/><br/><samp>' + res["message"].replace(/ /g, '&nbsp;').replace(/\r?\n/g, '<br />') + '</samp></div>');
               } else if (res["compilation"] === "success") {
                 $("#test_result").append('<div id="compilation" class="alert alert-success" role="alert"><strong>Compilation succeeded!</strong><br/></div>');
+              }
+              if (res["output"]) {
+                $("#test_result").append('<div id="output" class="alert alert-info" role="alert"><strong>Output:</strong><br/><br/><pre>' + res["output"] + '</pre></div>');
               }
               if (res["test"] === "error") {
                 $("#test_result").append('<div id="test" class="alert alert-danger" role="alert"><strong>Run failure!</strong><br/><br/><samp>' + res["message"].replace(/ /g, '&nbsp;').replace(/\r?\n/g, '<br />') + '</samp></div>');
