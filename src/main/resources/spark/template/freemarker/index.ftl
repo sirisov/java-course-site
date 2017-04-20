@@ -86,6 +86,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+    <script type="text/javascript" src="js.cookie.js"></script>
     <script type="text/javascript" src="codemirror.js"></script>
     <script type="text/javascript" src="clike.js"></script>
     <script>
@@ -113,6 +114,7 @@
         $('#code_test').on('click', function() {
           $('#test').remove();
           $('#compilation').remove();
+          Cookies.set(task.data('id'), editor.getDoc().getValue());
           $.ajax({
             type: "POST",
             url: "/code/" + task.data('id'),
@@ -146,6 +148,9 @@
           $('#code_test').text('Test your code');
         });
         $('#code_reset').trigger('click');
+        if (Cookies.get(task.data('id'))) {
+          editor.getDoc().setValue(Cookies.get(task.data('id')));
+        }
       })
       $('#presentations_menu > li > a').on('click', function(e) {
         $('#presentations_menu > li').removeClass('active');

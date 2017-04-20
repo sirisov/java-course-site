@@ -71,6 +71,7 @@ public class Server {
     pollEvents.stream()
               .filter(e -> e.kind() == ENTRY_MODIFY)
               .map(e -> e.context()).map(Path.class::cast)
+              .filter(p -> p.toString().equals(PRESENTATIONS_FILE) || p.toString().equals(TASKS_FILE))
               .map(RES_PATH::resolve)
               .forEach(Server::reloadResource);
     return RESOURCES;
