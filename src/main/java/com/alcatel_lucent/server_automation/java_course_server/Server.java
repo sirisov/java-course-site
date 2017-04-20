@@ -27,6 +27,9 @@ import java.util.stream.Collectors;
 
 import javax.util.streamex.StreamEx;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -36,6 +39,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class Server {
 
+  private static final Logger LOG = LoggerFactory.getLogger(Server.class);
   private static final String RES_DIR = "src/main/resources/";
   private static final String PRESENTATIONS_FILE = "presentations.list";
   private static final String TASKS_FILE = "tasks.json";
@@ -80,6 +84,8 @@ public class Server {
     Spark.staticFileLocation("/public");
     get("/", (req, res) -> new ModelAndView(getResources(), "index.ftl"), new FreeMarkerEngine());
     post("/code/:id", (req, res) -> {
+      LOG.info(req.ip() + " --> " + req.params(":id"));
+      LOG.info(req.body());
       Task task = StreamEx.ofValues(((Map<String, List<Task>>)getResources().get("tasks"))).flatCollection(l -> l).findFirst(t -> t.getId().equals(req.params(":id"))).get();
       return TestRunner.run(task, req.body());
     });

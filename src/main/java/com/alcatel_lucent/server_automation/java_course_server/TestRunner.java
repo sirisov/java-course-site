@@ -23,6 +23,11 @@ public class TestRunner {
   
   public static String run(Task task, String code) {
     JsonObject jo = new JsonObject();
+    if (code.contains("System.exit(")) {
+      jo.addProperty("compilation", "error");
+      jo.addProperty("message", "No way to send System.exit(). Sorry.");
+      return new Gson().toJson(jo);
+    }
     File outDir = new File("target" + File.separator + "compiled" + File.separator + UUID.randomUUID().toString());
     outDir.mkdirs();
     try {

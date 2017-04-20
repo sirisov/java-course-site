@@ -65,7 +65,7 @@
                 <div id="test_result"></div>
               </div>
               <div class="btn-group" role="group">
-                <button class="btn btn-primary" type="submit" id='code_test'>Test your code</button>
+                <button class="btn btn-primary" type="button" id='code_test'>Test your code</button>
                 <button class="btn btn-default" type="button" id='code_reset'>Reset</button>
               </div>
             </form>
