@@ -61,18 +61,19 @@ public class Server {
   private static WatchKey watch;
   
   static {
+    PATH_TO_LIST.put(RESP_NAME, rethrow().wrapFunction(path -> GSON.fromJson(new FileReader(path.toFile()), new TypeToken<Map<String, Map<String, String>>>(){}.getType())));
+    PATH_TO_LIST.put(PRESENTATIONS_FILE, rethrow().wrapFunction(path -> lines(path).map(Server::splitInTwo).map(Presentation::new).collect(toList())));
+    PATH_TO_LIST.put(TASKS_FILE, rethrow().wrapFunction(path -> GSON.<List<Task>>fromJson(new FileReader(path.toFile()), new TypeToken<List<Task>>(){}.getType())
+                                                                .stream().collect(Collectors.groupingBy(Task::getGroup))));
     try {
       RESP_FILE.createNewFile();
       if (RESP_FILE.length() > 0){
-        RESPONSES.putAll(GSON.fromJson(new FileReader(RESP_FILE), new TypeToken<Map<String, Map<String, String>>>(){}.getType()));
+        RESPONSES.putAll((Map<String, Map<String, String>>) PATH_TO_LIST.get(RESP_NAME).apply(RESP_FILE.toPath()));
       }
     } catch (IOException ex) {
       LOG.warn("Can't create file " + RESP_FILE, ex);
     }
-    PATH_TO_LIST.put(RESP_NAME, rethrow().wrapFunction(path -> new Gson().fromJson(new FileReader(path.toFile()), new TypeToken<Map<String, Map<String, String>>>(){}.getType())));
-    PATH_TO_LIST.put(PRESENTATIONS_FILE, rethrow().wrapFunction(path -> lines(path).map(Server::splitInTwo).map(Presentation::new).collect(toList())));
-    PATH_TO_LIST.put(TASKS_FILE, rethrow().wrapFunction(path -> new Gson().<List<Task>>fromJson(new FileReader(path.toFile()), new TypeToken<List<Task>>(){}.getType())
-                                                                .stream().collect(Collectors.groupingBy(Task::getGroup))));
+    
   }
   
   private static <K,V> Entry<K,V> pair(K key, V value) {
@@ -105,6 +106,7 @@ public class Server {
   public static void main(String[] args) throws IOException {
     reloadResource(Paths.get(RES_DIR + PRESENTATIONS_FILE));
     reloadResource(Paths.get(RES_DIR + TASKS_FILE));
+    reloadResource(RESP_FILE.toPath());
     watch = RES_PATH.register(FileSystems.getDefault().newWatchService(), ENTRY_MODIFY);
     port(Integer.valueOf(System.getenv().getOrDefault("PORT", "8080")));
     Spark.staticFileLocation("/public");

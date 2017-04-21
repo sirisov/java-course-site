@@ -65,11 +65,15 @@
         select.find('option').remove();
         select.append($('<option>', { value : task.data('code')})
             .text("Default"));
-        $.each(resp[task.data('id')], function(key, value) {
-          select
-            .append($('<option>', { value : value})
-            .text(key)); 
-        });
+        if (resp[task.data('id')]) {
+          $.each(resp[task.data('id')], function(key, value) {
+            if (key !== "0:0:0:0:0:0:0:1") {
+              select
+                .append($('<option>', { value : value})
+                .text(key)); 
+            }
+          });
+        }
         $('#ip_select').unbind('change');
         $('#ip_select').on('change', function() {
           editor.getDoc().setValue(this.value);
