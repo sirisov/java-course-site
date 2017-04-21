@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Java ALE internal training</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <!-- Highlight -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/default.min.css">
-    <!-- Sidebar -->
-    <link href="sidebar.css" rel="stylesheet"/>
-    <!-- CodeMirror -->
-    <link href="codemirror.css" rel="stylesheet"/>
-    <link href="codemirror_bootstrap_theme.css" rel="stylesheet"/>
-    
-    
-  </head>
+  <#include "head.ftl">
   <body>
     <div class="nav-side-menu">
       <div class="brand">Java ALE trainings</div>
@@ -32,9 +13,9 @@
           <ul class="sub-menu collapse in" id="trainings_menu">
             <#list tasks as group, list>
             <li>
-              <a data-toggle="collapse" data-target="#java_base">&nbsp;&nbsp;<i class="glyphicon glyphicon-list"></i> ${group} <span class="arrow glyphicon glyphicon-chevron-down"></span></a>
+              <a data-toggle="collapse" data-target="#${group?replace(" ","_")}">&nbsp;&nbsp;<i class="glyphicon glyphicon-list"></i> ${group} <span class="arrow glyphicon glyphicon-chevron-down"></span></a>
             </li>
-            <ul class="sub-menu collapse in" id="${group?replace(" "," ")}">
+            <ul class="sub-menu collapse in" id="${group?replace(" ","_")}">
               <#list list as task>
               <li><a href="#" data-id="${task.id}" data-information="${task.info!''}" data-description="${task.description}" data-name="${task.name?replace("* ", "")}" data-code='${task.code}'>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i> ${task.name?replace("*", "<i class='glyphicon glyphicon-star'></i>")}</a></li>
               </#list>
@@ -60,10 +41,11 @@
             <form>
               <div class="form-group">
                 <span id="helpBlock" class="help-block">Description</span>
-                <textarea id="code_editor" class="form-control" rows="3"></textarea>
-                <p/>
-                <div id="test_result"></div>
               </div>
+              <div class="form-group">
+                <textarea id="code_editor" class="form-control" rows="3"></textarea>
+              </div>
+              <div id="test_result"></div>
               <div class="btn-group" role="group">
                 <button class="btn btn-primary" type="button" id='code_test'>Test your code</button>
                 <button class="btn btn-default" type="button" id='code_reset'>Reset</button>

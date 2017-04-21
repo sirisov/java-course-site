@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
-
 public class Task {
 
   private final String id;

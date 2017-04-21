@@ -6,6 +6,7 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
 import static spark.Spark.get;
+import static spark.Spark.halt;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
@@ -45,15 +46,17 @@ import com.google.gson.stream.JsonWriter;
 
 public class Server {
 
+  private static final String MY_IP = "10\\.97\\.24\\.20|0:0:0:0:0:0:0:1|127\\.0\\.0\\.1";
   private static final Logger LOG = LoggerFactory.getLogger(Server.class);
   private static final String RES_DIR = "src/main/resources/";
   private static final String PRESENTATIONS_FILE = "presentations.list";
   private static final String TASKS_FILE = "tasks.json";
+  private static final String RESP_NAME = "response.json";
   private static final Path RES_PATH = Paths.get(RES_DIR);
   private static final Map<String, Function<Path, Object>> PATH_TO_LIST = new ConcurrentHashMap<>();
   private static final Map<String, Object> RESOURCES = new ConcurrentHashMap<>();
   private static final Map<String, Map<String, String>> RESPONSES = new ConcurrentHashMap<>();
-  private static final File RESP_FILE = new File("target/response.json");
+  private static final File RESP_FILE = RES_PATH.resolve(RESP_NAME).toFile();
   private static final Gson GSON = new Gson();
   private static WatchKey watch;
   
@@ -66,6 +69,7 @@ public class Server {
     } catch (IOException ex) {
       LOG.warn("Can't create file " + RESP_FILE, ex);
     }
+    PATH_TO_LIST.put(RESP_NAME, rethrow().wrapFunction(path -> new Gson().fromJson(new FileReader(path.toFile()), new TypeToken<Map<String, Map<String, String>>>(){}.getType())));
     PATH_TO_LIST.put(PRESENTATIONS_FILE, rethrow().wrapFunction(path -> lines(path).map(Server::splitInTwo).map(Presentation::new).collect(toList())));
     PATH_TO_LIST.put(TASKS_FILE, rethrow().wrapFunction(path -> new Gson().<List<Task>>fromJson(new FileReader(path.toFile()), new TypeToken<List<Task>>(){}.getType())
                                                                 .stream().collect(Collectors.groupingBy(Task::getGroup))));
@@ -83,15 +87,19 @@ public class Server {
     RESOURCES.put(resPath.toFile().getName().replaceAll("\\.[^\\.]+$", ""), PATH_TO_LIST.get(resPath.toFile().getName()).apply(resPath));
   }
   
-  private static Map<String, Object> getResources() throws IOException {
+  private static Map<String, Object> getResources() {
     List<WatchEvent<?>> pollEvents = watch.pollEvents();
     pollEvents.stream()
               .filter(e -> e.kind() == ENTRY_MODIFY)
               .map(e -> e.context()).map(Path.class::cast)
-              .filter(p -> p.toString().equals(PRESENTATIONS_FILE) || p.toString().equals(TASKS_FILE))
+              .filter(p -> p.toString().equals(PRESENTATIONS_FILE) || p.toString().equals(TASKS_FILE) || p.toString().equalsIgnoreCase(RESP_NAME))
               .map(RES_PATH::resolve)
               .forEach(Server::reloadResource);
     return RESOURCES;
+  }
+  
+  private static String renderFTL(String ftl) {
+    return new FreeMarkerEngine().render(new ModelAndView(getResources(), ftl));
   }
   
   public static void main(String[] args) throws IOException {
@@ -100,7 +108,8 @@ public class Server {
     watch = RES_PATH.register(FileSystems.getDefault().newWatchService(), ENTRY_MODIFY);
     port(Integer.valueOf(System.getenv().getOrDefault("PORT", "8080")));
     Spark.staticFileLocation("/public");
-    get("/", (req, res) -> new ModelAndView(getResources(), "index.ftl"), new FreeMarkerEngine());
+    get("/", (req, res) -> renderFTL("index.ftl"));
+    get("/codes", (req, res) -> req.ip().matches(MY_IP) ? renderFTL("codes.ftl") : halt(403, "Access Forbidden").body());
     post("/code/:id", (req, res) -> {
       LOG.info(req.ip() + " --> " + req.params(":id"));
       LOG.info(req.body());
