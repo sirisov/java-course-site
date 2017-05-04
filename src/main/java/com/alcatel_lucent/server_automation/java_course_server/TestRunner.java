@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 
-import com.alcatel_lucent.server_automation.java_course_server.CodeCompiler.CompilationException;
+import com.alcatel_lucent.server_automation.java_course_server.CodeUtils.CompilationException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -33,8 +33,11 @@ public class TestRunner {
     outDir.mkdirs();
     try {
       URLClassLoader cl = new URLClassLoader(new URL[] {outDir.toURI().toURL()});
-      Class<?> classToTest = CodeCompiler.compileClass(task.getPackage_name() + '.' + task.getClass_name(), code, outDir, cl);
-      Class<?> testClass = CodeCompiler.compileClass(task.getPackage_name() + '.' + task.getTest_name(), TEST_CLASS_DIR.toPath().resolve(task.getPackage_name().replace('.', File.separatorChar) + File.separatorChar + task.getTest_name() + ".java").toFile() , outDir, cl);
+      if (task.getPreload() != null) {
+        CodeUtils.compileClass(task.getPreload(), outDir);
+      }
+      Class<?> classToTest = CodeUtils.compileAndLoad(task.getPackage_name() + '.' + task.getClass_name(), code, outDir, cl);
+      Class<?> testClass = CodeUtils.compileAndLoad(task.getPackage_name() + '.' + task.getTest_name(), TEST_CLASS_DIR.toPath().resolve(task.getPackage_name().replace('.', File.separatorChar) + File.separatorChar + task.getTest_name() + ".java").toFile() , outDir, cl);
       jo.addProperty("compilation", "success");
       TestListenerAdapter tla = new TestListenerAdapter();
       TestNG testng = new TestNG();

@@ -6,7 +6,6 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
 import static spark.Spark.get;
-import static spark.Spark.halt;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
@@ -27,7 +26,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import javax.util.streamex.StreamEx;
 
@@ -46,7 +44,6 @@ import com.google.gson.stream.JsonWriter;
 
 public class Server {
 
-  private static final String MY_IP = "10\\.97\\.24\\.20|0:0:0:0:0:0:0:1|127\\.0\\.0\\.1";
   private static final Logger LOG = LoggerFactory.getLogger(Server.class);
   private static final String RES_DIR = "src/main/resources/";
   private static final String PRESENTATIONS_FILE = "presentations.list";
@@ -63,8 +60,7 @@ public class Server {
   static {
     PATH_TO_LIST.put(RESP_NAME, rethrow().wrapFunction(path -> GSON.fromJson(new FileReader(path.toFile()), new TypeToken<Map<String, Map<String, String>>>(){}.getType())));
     PATH_TO_LIST.put(PRESENTATIONS_FILE, rethrow().wrapFunction(path -> lines(path).map(Server::splitInTwo).map(Presentation::new).collect(toList())));
-    PATH_TO_LIST.put(TASKS_FILE, rethrow().wrapFunction(path -> GSON.<List<Task>>fromJson(new FileReader(path.toFile()), new TypeToken<List<Task>>(){}.getType())
-                                                                .stream().collect(Collectors.groupingBy(Task::getGroup))));
+    PATH_TO_LIST.put(TASKS_FILE, rethrow().wrapFunction(path -> GSON.<Map<String, List<Task>>>fromJson(new FileReader(path.toFile()), new TypeToken<Map<String, List<Task>>>(){}.getType())));
     try {
       RESP_FILE.createNewFile();
       if (RESP_FILE.length() > 0){
@@ -111,7 +107,7 @@ public class Server {
     port(Integer.valueOf(System.getenv().getOrDefault("PORT", "8080")));
     Spark.staticFileLocation("/public");
     get("/", (req, res) -> renderFTL("index.ftl"));
-    get("/codes", (req, res) -> req.ip().matches(MY_IP) ? renderFTL("codes.ftl") : halt(403, "Access Forbidden").body());
+    get("/codes", (req, res) -> renderFTL("codes.ftl"));
     post("/code/:id", (req, res) -> {
       LOG.info(req.ip() + " --> " + req.params(":id"));
       LOG.info(req.body());

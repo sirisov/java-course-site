@@ -42,7 +42,7 @@
               <div class="form-group">
                 <span id="helpBlock" class="help-block">Description</span>
               </div>
-              <div class="form-group">
+              <div class="form-group" id="code_div">
                 <textarea id="code_editor" class="form-control" rows="3"></textarea>
               </div>
               <div id="test_result"></div>
@@ -67,7 +67,7 @@
     <!-- Jquery & Bootstrap scripts -->
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
     <script type="text/javascript" src="js.cookie.js"></script>
     <script type="text/javascript" src="codemirror.js"></script>
     <script type="text/javascript" src="clike.js"></script>
@@ -85,7 +85,10 @@
         var task = $(e.target);
         $('#training_tab h4').text(task.data('name'));
         $('#training_tab span').text(task.data('description'));
-        $('#training_tab p#task_info').html($('<div/>').html(task.data('information')));
+        $('#task_info').html($('<div/>').html(task.data('information')));
+        $('#task_info pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
         $('#code_reset').on('click', function() {
           $('.alert').remove();
           editor.getDoc().setValue(task.data('code'));
@@ -94,7 +97,11 @@
         $('#code_test').unbind('click');
         $('#code_test').on('click', function() {
           $('.alert').remove();
-          Cookies.set(task.data('id'), editor.getDoc().getValue());
+          if (typeof(Storage) !== "undefined") {
+            localStorage.setItem(task.data('id'), editor.getDoc().getValue());
+          } else {
+            Cookies.set(task.data('id'), editor.getDoc().getValue());
+          }
           $.ajax({
             type: "POST",
             url: "/code/" + task.data('id'),
@@ -110,15 +117,15 @@
               } else if (res["compilation"] === "success") {
                 $("#test_result").append('<div id="compilation" class="alert alert-success" role="alert"><strong>Compilation succeeded!</strong><br/></div>');
               }
-              if (res["output"]) {
-                $("#test_result").append('<div id="output" class="alert alert-info" role="alert"><strong>Output:</strong><br/><br/><pre>' + res["output"] + '</pre></div>');
-              }
               if (res["test"] === "error") {
                 $("#test_result").append('<div id="test" class="alert alert-danger" role="alert"><strong>Run failure!</strong><br/><br/><samp>' + res["message"].replace(/ /g, '&nbsp;').replace(/\r?\n/g, '<br />') + '</samp></div>');
               } else if (res["test"] === "failed") {
                 $("#test_result").append('<div id="test" class="alert alert-danger" role="alert"><strong>Some tests failed</strong><br/><br/>' + res["short"] + '<br/><pre>' + res["result"] + '</pre></div>');
               } else if (res["test"] === "success") {
                 $("#test_result").append('<div id="test" class="alert alert-success" role="alert"><strong>All tests passed!</strong><br/></div>');
+              }
+              if (res["output"]) {
+                $("#test_result").append('<div id="output" class="alert alert-info" role="alert"><strong>Output:</strong><br/><br/><pre>' + res["output"] + '</pre></div>');
               }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -131,8 +138,14 @@
           $('#code_test').text('Test your code');
         });
         $('#code_reset').trigger('click');
-        if (Cookies.get(task.data('id'))) {
-          editor.getDoc().setValue(Cookies.get(task.data('id')));
+        if (typeof(Storage) !== "undefined") {
+          if (Cookies.get(task.data('id'))) {
+            localStorage.setItem(task.data('id'), Cookies.get(task.data('id')));
+            Cookies.remove(task.data('id'));
+          }
+          editor.getDoc().setValue(localStorage.getItem(task.data('id')) || task.data('code'));
+        } else {
+          editor.getDoc().setValue(Cookies.get(task.data('id')) || task.data('code'));
         }
       })
       $('#presentations_menu > li > a').on('click', function(e) {
@@ -148,7 +161,6 @@
       $('#trainings_menu').on('show.bs.collapse', function (e) {
         $('#presentations_menu').collapse('hide');
       })
-      hljs.initHighlightingOnLoad();
     });
     </script>
   

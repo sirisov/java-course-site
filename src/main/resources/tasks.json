@@ -1,7 +1,6 @@
-[{
+{ "Java base":	[{
 "id": "jb_1",
 "name": "Count hackable objects",
-"group": "Java base",
 "description": "Count how much object you can hack",
 "package_name": "ale.java_training",
 "test_name": "CountHackableTest",
@@ -18,7 +17,6 @@ public class HackUtils {
 {
 "id": "jb_2",
 "name": "Cover up traces",
-"group": "Java base",
 "description": "Cover up your traces on server by shuffling the logs in random order",
 "package_name": "ale.java_training",
 "test_name": "LogShufflerTest",
@@ -53,8 +51,7 @@ where `limit` is some integer value to limit random value between 0 and `limit` 
 {
 "id": "jb_3",
 "name": "Richie Rich",
-"group": "Java base",
-"description": "Find richest and poorest bank account",
+"description": "Find richest and poorest bank account's value",
 "package_name": "ale.java_training",
 "test_name": "MinMaxTest",
 "class_name": "AccountSearcher",
@@ -78,7 +75,6 @@ If you can't find max or min value in array, you should return `Integer.MIN_VALU
 {
 "id": "jb_4",
 "name": "Find profit",
-"group": "Java base",
 "description": "Calculate the profit of hacking series of bank accounts",
 "package_name": "ale.java_training",
 "test_name": "FindProfitTest",
@@ -95,7 +91,6 @@ public class HackUtils {
 {
 "id": "jb_5",
 "name": "* Maximize profit",
-"group": "Java base",
 "description": "Find maximum profit of hacking series of bank accounts",
 "package_name": "ale.java_training",
 "test_name": "MaximizeProfitTest",
@@ -112,8 +107,7 @@ public class HackUtils {
 {
 "id": "jb_6",
 "name": "* Strong your password",
-"group": "Java base",
-"description": "Make your password harder to hack: upper case first letter and add random number to the end",
+"description": "Make your password harder to hack: upper case first letter (if any) and add random number (0-9) to the end",
 "package_name": "ale.java_training",
 "test_name": "StrongPasswordTest",
 "class_name": "HackUtils",
@@ -129,8 +123,7 @@ public class HackUtils {
 {
 "id": "jb_7",
 "name": "* Find account",
-"group": "Java base",
-"description": "You have a piece of some one card. You need to find an account in the bank database.",
+"description": "You have a piece of some one card. You need to find an first account in the bank database that matches it.",
 "package_name": "ale.java_training",
 "test_name": "FindAccountTest",
 "class_name": "AccountSearcher",
@@ -142,5 +135,234 @@ public class AccountSearcher {
         // if piece is \"40392\" and list is [\"13049523\", \"4912095\", \"94919571\", \"64039217\", \"31920168\"]. shoud return \"64039217\"
     }
 }
-"}
-]
+"}],
+"Java classes" : [{
+"id": "jc_1",
+"name": "Named implementation",
+"description": "Create an implementation for named interface that takes a name as constructor parameter",
+"package_name": "ale.java_training.classes",
+"test_name": "NamedTest",
+"class_name": "Named",
+"code": "package ale.java_training.classes;
+
+public interface Named {
+	
+	String getName();
+	
+	public static Named create(String name) {
+		return new SimpleNamed(name);
+	}
+	
+	public static class SimpleNamed implements Named {
+		//here you go
+	}
+	
+}
+"},
+{
+"id": "jc_2",
+"name": "Fight club",
+"description": "Create a function that find a winner in a fight between two fighters. Each fighter takes turns attacking the other and whoever kills the other first is victorious.",
+"package_name": "ale.java_training.classes",
+"test_name": "FighterTest",
+"class_name": "Fighter",
+"code": "package ale.java_training.classes;
+
+public class Fighter {
+	
+	public static String declareWinner(Fighter f1, Fighter f2, String firstAttacker) {
+		//here you go
+	}
+	
+	private final String name;
+	private final int health, damagePerAttack;
+	
+	public Fighter(String name, int health, int damagePerAttack) {
+		this.name = name;
+		this.health = health;
+		this.damagePerAttack = damagePerAttack;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public int getDPA() {
+		return damagePerAttack;
+	}
+	
+}
+"},
+{
+"id": "jc_3",
+"name": "Terminator: Successor",
+"description": "Make a new brand T1000 that inherits T800 (from second slide). T1000 never smiles. T1000 can restore (add a method restore that returns T1000 itself)",
+"package_name": "ale.java_training.classes",
+"test_name": "T1000Test",
+"class_name": "T1000",
+"preload" : "package ale.java_training.classes;
+
+public class T800 {
+
+    public boolean smile = true;
+
+    public T800() {
+        System.out.println(\"I need your clothes, your boots and your motorcycle\");
+    }
+
+    public void sayGoodbye() {
+        System.out.println(\"I’ll be back\");
+    }
+
+    public void setSmile(boolean smile) {
+        this.smile = smile;
+    }
+
+    public boolean isSmiling() {
+        return smile;
+    }
+}
+",
+"code": "package ale.java_training.classes;
+// your class goes here
+"},
+{
+"id": "jc_4",
+"name": "Anonymizer",
+"description": "Make an anonymous implementation of given interface that returns passed string",
+"package_name": "ale.java_training.classes",
+"test_name": "AnonymizerTest",
+"class_name": "Anonymizer",
+"code": "package ale.java_training.classes;
+
+public interface Anonymizer {
+	
+	String pretend();
+	
+	static Anonymizer pretendAs(String somebody) {
+		//return anonymous implementation of an interface
+	}
+	
+}
+"},
+{
+"id": "jc_5",
+"name": "Ghost in the shell",
+"description": "Make an Ghost class that has random shell (but the same for whole post-life)",
+"package_name": "ale.java_training.classes",
+"test_name": "GhostTest",
+"class_name": "Ghost",
+"preload" : "package ale.java_training.classes;
+
+public interface Armored {
+
+	Shell getShell();
+
+	public static enum Shell{
+		LEATHER,
+		CHAINMAIL,
+		PLATE,
+		BOGU;
+	}
+}",
+"code": "package ale.java_training.classes;
+
+public class Ghost implements Armored {
+	
+	// go on
+		
+}
+",
+"info" : "#### Armored interface with Shell enum are preloaded as following
+```java
+public interface Armored {
+
+	Shell getShell();
+
+	public static enum Shell{
+		LEATHER,
+		CHAINMAIL,
+		PLATE,
+		BOGU;
+	}
+}
+```
+"},
+{
+"id": "jc_7",
+"name": "* We are the robots",
+"description": "Make an implementation",
+"package_name": "ale.java_training.classes",
+"test_name": "RobotTest",
+"class_name": "FancyRobot",
+"preload": "package ale.java_training.classes;
+
+public interface Robot {
+	
+	public interface Command {
+		void doIt();
+	}
+	
+	void queueCommand(Command command);
+	
+	void execute();
+	
+}
+",
+"code":"package ale.java_training.classes;
+
+public class FancyRobot implements Robot {
+	
+	//implementation
+	
+	public static enum Movement {
+		
+	}
+	
+	public static class Commands {
+		//sing a song
+		//dance right|left|up|down
+		//work
+		//serve
+	}
+}",
+"info":"#### Usage example
+```java
+	Robot r = new FancyRobot();
+	r.queueCommand(Commands.sing(\"We are the robots\"));
+	r.queueCommand(Commands.dance(Movement.RIGHT));
+	r.queueCommand(Commands.dance(Movement.LEFT));
+	r.queueCommand(Commands.dance(Movement.UP));
+	r.queueCommand(Commands.work());
+	r.queueCommand(Commands.serve());
+	r.execute();
+```
+#### Output example
+```
+We are the robots
+d[(0)(0)]b -->
+<-- d[(0)(0)]b
+\\[(0)(0)]/
+Ja tvoi rabotnik
+Ja tvoi sluga
+```
+#### Preloaded code
+```java
+public interface Robot {
+	
+	public static interface Command {
+		void doIt();
+	}
+	
+	void queueCommand(Command command);
+	
+	void execute();
+	
+}
+```
+"}]
+}

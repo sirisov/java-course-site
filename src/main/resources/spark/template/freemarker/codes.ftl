@@ -8,6 +8,7 @@
       <div class="menu-list">
         <ul id="menu-content" class="menu-content collapse out">
           <#list tasks as group, list>
+          <#if group != "Java classes">
           <li>
             <a data-toggle="collapse" data-target="#${group?replace(" ","_")}">&nbsp;&nbsp;<i class="glyphicon glyphicon-list"></i> ${group} <span class="arrow glyphicon glyphicon-chevron-down"></span></a>
           </li>
@@ -16,6 +17,7 @@
             <li><a href="#" data-id="${task.id}" data-information="${task.info!''}" data-description="${task.description}" data-name="${task.name?replace("* ", "")}" data-code='${task.code}'>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i> ${task.name?replace("*", "<i class='glyphicon glyphicon-star'></i>")}</a></li>
             </#list>
           </ul>
+          </#if>
           </#list>
         </ul>
       </div>
@@ -54,6 +56,10 @@
         mode: "text/x-java",
         autofocus: true,
       });
+      var ips = {"10.97.24.20" : "Sergey Irisov", "10.97.20.79" : "Olga Leonova", "10.97.24.17" : "Tatyana Speranskaya",
+                 "10.97.20.139" : "Natalia Smirnova", "10.97.20.31": "Evgeny Efremenko", "10.97.24.22" : "Tatyana Gindysh",
+                 "10.97.20.10" : "Kirill Shichalin", "10.97.20.135" : "Irina Germanova", "10.97.20.129" : "Sofiya Andreyuk",
+                 "10.97.20.62" : "Alexey Belyakov", "10.97.20.128" : "Julia Saenko"};
       var resp = {<#list response as id, pair>"${id}":{<#list pair as ip, code>"${ip}":`${code}`, </#list>}, </#list>};
       $('#menu-content > ul > li > a').on('click', function(e) {
         $('#menu-content > ul > li').removeClass('active');
@@ -70,7 +76,7 @@
             if (key !== "0:0:0:0:0:0:0:1") {
               select
                 .append($('<option>', { value : value})
-                .text(key)); 
+                .text($.urlParam('anonymous') === "true" ? key : ips[key] || key)); 
             }
           });
         }
@@ -83,6 +89,15 @@
         editor.focus();        
       })
       hljs.initHighlightingOnLoad();
+      $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+          return null;
+        }
+        else{
+          return results[1] || 0;
+        }
+      };
     });
     </script>
   </body>
