@@ -10,12 +10,12 @@ public class FighterTest {
 
   @Test
   public void basicTests() {
-    assertEquals(Fighter.declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Lew"), "Lew");
-    assertEquals(Fighter.declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Harry"), "Harry");
-    assertEquals(Fighter.declareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harry"), "Harald");
-    assertEquals(Fighter.declareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harald"), "Harald");
-    assertEquals(Fighter.declareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Jerry"), "Harald");            
-    assertEquals(Fighter.declareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Harald"), "Harald");
+    assertEquals(FightClub.declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Lew"), "Lew");
+    assertEquals(FightClub.declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Harry"), "Harry");
+    assertEquals(FightClub.declareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harry"), "Harald");
+    assertEquals(FightClub.declareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harald"), "Harald");
+    assertEquals(FightClub.declareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Jerry"), "Harald");            
+    assertEquals(FightClub.declareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Harald"), "Harald");
   }
   
   @Test
@@ -29,7 +29,7 @@ public class FighterTest {
       }
       int[] health = {r.nextInt(999) + 1, r.nextInt(999) + 1}, damagePerAttack = {r.nextInt(99) + 1, r.nextInt(99) + 1};
       String first = name[r.nextInt(1)];
-      assertEquals(Fighter.declareWinner(new Fighter(name[0], health[0], damagePerAttack[0]), new Fighter(name[1], health[1], damagePerAttack[1]), first), solution(new Fighter(name[0], health[0], damagePerAttack[0]), new Fighter(name[1], health[1], damagePerAttack[1]), first));
+      assertEquals(FightClub.declareWinner(new Fighter(name[0], health[0], damagePerAttack[0]), new Fighter(name[1], health[1], damagePerAttack[1]), first), solution(new Fighter(name[0], health[0], damagePerAttack[0]), new Fighter(name[1], health[1], damagePerAttack[1]), first));
     }
   }
   

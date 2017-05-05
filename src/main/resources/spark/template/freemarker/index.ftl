@@ -15,7 +15,7 @@
             <li>
               <a data-toggle="collapse" data-target="#${group?replace(" ","_")}">&nbsp;&nbsp;<i class="glyphicon glyphicon-list"></i> ${group} <span class="arrow glyphicon glyphicon-chevron-down"></span></a>
             </li>
-            <ul class="sub-menu collapse in" id="${group?replace(" ","_")}">
+            <ul class="sub-menu collapse" id="${group?replace(" ","_")}">
               <#list list as task>
               <li><a href="#" data-id="${task.id}" <#if task.preload?has_content>data-preload="${task.preload}"</#if> <#if task.info?has_content>data-information="${task.info}"</#if> data-description="${task.description}" data-name="${task.name?replace("* ", "")}" data-code='${task.code}'>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i> ${task.name?replace("*", "<i class='glyphicon glyphicon-star'></i>")}</a></li>
               </#list>

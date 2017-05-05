@@ -11,15 +11,19 @@ import org.testng.annotations.Test;
 
 public class NamedTest {
 
+  private static Named create(String name) {
+		return new SimpleNamed(name);
+  }
+  
   @Test
   public void test_simple() {
-    Named impl = Named.create("test");
+    Named impl = create("test");
     assertEquals(impl.getName(), "test", "Simple creation should work:");
   }
   
   @Test
   public void check_class() {
-    Named impl = Named.create("test");
+    Named impl = create("test");
     assertEquals(impl.getClass().getDeclaredFields().length, 1, "SimpleNamed shouldn't have more than one field");
     Field field = impl.getClass().getDeclaredFields()[0];
     assertTrue((field.getModifiers() & Modifier.PRIVATE) == Modifier.PRIVATE, "Field " + field.getName() + " should be private");
@@ -28,8 +32,8 @@ public class NamedTest {
   
   @Test
   public void test_advanced() {
-    assertEquals(Named.create("").getName(), "", "Should work for empty string:");
-    assertEquals(Named.create(null).getName(), null, "Should work for null:");
+    assertEquals(create("").getName(), "", "Should work for empty string:");
+    assertEquals(create(null).getName(), null, "Should work for null:");
   }
   
 }

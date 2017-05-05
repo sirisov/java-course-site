@@ -1,11 +1,12 @@
-{ "Java base":	[{
-"id": "jb_1",
-"name": "Count hackable objects",
-"description": "Count how much object you can hack",
-"package_name": "ale.java_training",
-"test_name": "CountHackableTest",
-"class_name": "HackUtils",
-"code": "package ale.java_training;
+{
+	"Java base": [{
+		"id": "jb_1",
+		"name": "Count hackable objects",
+		"description": "Count how much object you can hack",
+		"package_name": "ale.java_training",
+		"test_name": "CountHackableTest",
+		"class_name": "HackUtils",
+		"code": "package ale.java_training;
 
 public class HackUtils {
     
@@ -13,15 +14,15 @@ public class HackUtils {
         // return count
     }
 }"
-},
-{
-"id": "jb_2",
-"name": "Cover up traces",
-"description": "Cover up your traces on server by shuffling the logs in random order",
-"package_name": "ale.java_training",
-"test_name": "LogShufflerTest",
-"class_name": "LogShuffler",
-"code": "package ale.java_training;
+	},
+	{
+		"id": "jb_2",
+		"name": "Cover up traces",
+		"description": "Cover up your traces on server by shuffling the logs in random order",
+		"package_name": "ale.java_training",
+		"test_name": "LogShufflerTest",
+		"class_name": "LogShuffler",
+		"code": "package ale.java_training;
 
 public class LogShuffler {
     
@@ -29,7 +30,7 @@ public class LogShuffler {
         // your shuffle code goes here
     }
 }",
-"info":"
+		"info": "
 #### Useful information
 
 Here is a [Fisher-Yates shuffle algoriythm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle):
@@ -47,15 +48,15 @@ You can obtain a random int by doing
     random.nextInt(limit);
 ```
 where `limit` is some integer value to limit random value between 0 and `limit` (exclusive)"
-},
-{
-"id": "jb_3",
-"name": "Richie Rich",
-"description": "Find richest and poorest bank account's value",
-"package_name": "ale.java_training",
-"test_name": "MinMaxTest",
-"class_name": "AccountSearcher",
-"code": "package ale.java_training;
+	},
+	{
+		"id": "jb_3",
+		"name": "Richie Rich",
+		"description": "Find richest and poorest bank account's value",
+		"package_name": "ale.java_training",
+		"test_name": "MinMaxTest",
+		"class_name": "AccountSearcher",
+		"code": "package ale.java_training;
 
 public class AccountSearcher {
     
@@ -67,19 +68,19 @@ public class AccountSearcher {
         // find the poorest
     }
 }",
-"info": "
+		"info": "
 #### Useful information
 
 If you can't find max or min value in array, you should return `Integer.MIN_VALUE` or `Integer.MAX_VALUE` respectively"
-},
-{
-"id": "jb_4",
-"name": "Find profit",
-"description": "Calculate the profit of hacking series of bank accounts",
-"package_name": "ale.java_training",
-"test_name": "FindProfitTest",
-"class_name": "HackUtils",
-"code": "package ale.java_training;
+	},
+	{
+		"id": "jb_4",
+		"name": "Find profit",
+		"description": "Calculate the profit of hacking series of bank accounts",
+		"package_name": "ale.java_training",
+		"test_name": "FindProfitTest",
+		"class_name": "HackUtils",
+		"code": "package ale.java_training;
 
 public class HackUtils {
     
@@ -87,15 +88,15 @@ public class HackUtils {
       // calc the sum of hacking accounts
     }
 }"
-},
-{
-"id": "jb_5",
-"name": "* Maximize profit",
-"description": "Find maximum profit of hacking series of bank accounts",
-"package_name": "ale.java_training",
-"test_name": "MaximizeProfitTest",
-"class_name": "HackUtils",
-"code": "package ale.java_training;
+	},
+	{
+		"id": "jb_5",
+		"name": "* Maximize profit",
+		"description": "Find maximum profit of hacking series of bank accounts",
+		"package_name": "ale.java_training",
+		"test_name": "MaximizeProfitTest",
+		"class_name": "HackUtils",
+		"code": "package ale.java_training;
 
 public class HackUtils {
     
@@ -103,15 +104,15 @@ public class HackUtils {
       // find maximum sum of n series
     }
 }"
-},
-{
-"id": "jb_6",
-"name": "* Strong your password",
-"description": "Make your password harder to hack: upper case first letter (if any) and add random number (0-9) to the end",
-"package_name": "ale.java_training",
-"test_name": "StrongPasswordTest",
-"class_name": "HackUtils",
-"code": "package ale.java_training;
+	},
+	{
+		"id": "jb_6",
+		"name": "* Strong your password",
+		"description": "Make your password harder to hack: upper case first letter (if any) and add random number (0-9) to the end",
+		"package_name": "ale.java_training",
+		"test_name": "StrongPasswordTest",
+		"class_name": "HackUtils",
+		"code": "package ale.java_training;
 
 public class HackUtils {
     
@@ -119,15 +120,16 @@ public class HackUtils {
       // qwerty -> Qwerty9
     }
 }
-"},
-{
-"id": "jb_7",
-"name": "* Find account",
-"description": "You have a piece of some one card. You need to find an first account in the bank database that matches it.",
-"package_name": "ale.java_training",
-"test_name": "FindAccountTest",
-"class_name": "AccountSearcher",
-"code": "package ale.java_training;
+"
+	},
+	{
+		"id": "jb_7",
+		"name": "* Find account",
+		"description": "You have a piece of some one card. You need to find an first account in the bank database that matches it.",
+		"package_name": "ale.java_training",
+		"test_name": "FindAccountTest",
+		"class_name": "AccountSearcher",
+		"code": "package ale.java_training;
 
 public class AccountSearcher {
     
@@ -135,38 +137,41 @@ public class AccountSearcher {
         // if piece is \"40392\" and list is [\"13049523\", \"4912095\", \"94919571\", \"64039217\", \"31920168\"]. shoud return \"64039217\"
     }
 }
-"}],
-"Java classes" : [{
-"id": "jc_1",
-"name": "Named implementation",
-"description": "Create an implementation for named interface that takes a name as constructor parameter",
-"package_name": "ale.java_training.classes",
-"test_name": "NamedTest",
-"class_name": "Named",
-"code": "package ale.java_training.classes;
+"
+	}],
+	"Java classes": [{
+		"id": "jc_1",
+		"name": "Named implementation",
+		"description": "Create an implementation for named interface that takes a name as constructor parameter",
+		"package_name": "ale.java_training.classes",
+		"test_name": "NamedTest",
+		"class_name": "SimpleNamed",
+		"preload": "package ale.java_training.classes;
 
 public interface Named {
 	
 	String getName();
-	
-	public static Named create(String name) {
-		return new SimpleNamed(name);
-	}
-	
-	public static class SimpleNamed implements Named {
-		//here you go
-	}
-	
+
+}",
+		"code": "package ale.java_training.classes;
+
+public class SimpleNamed implements Named {
+	//here you go
 }
-"},
-{
-"id": "jc_2",
-"name": "Fight club",
-"description": "Create a function that find a winner in a fight between two fighters. Each fighter takes turns attacking the other and whoever kills the other first is victorious.",
-"package_name": "ale.java_training.classes",
-"test_name": "FighterTest",
-"class_name": "FightClub",
-"preload": "package ale.java_training.classes;
+",
+		"info": "### Usage
+```java
+	Named named = new SimpleNamed(\"test\");
+```"
+	},
+	{
+		"id": "jc_2",
+		"name": "Fight club",
+		"description": "Create a function that find a winner in a fight between two fighters. Each fighter takes turns attacking the other and whoever kills the other first is victorious.",
+		"package_name": "ale.java_training.classes",
+		"test_name": "FighterTest",
+		"class_name": "FightClub",
+		"preload": "package ale.java_training.classes;
 
 public class Fighter {
 	
@@ -192,7 +197,7 @@ public class Fighter {
 	}
 	
 }",
-"code": "package ale.java_training.classes;
+		"code": "package ale.java_training.classes;
 
 public class FightClub {
 	
@@ -201,15 +206,16 @@ public class FightClub {
 	}
 	
 }
-"},
-{
-"id": "jc_3",
-"name": "Terminator: Successor",
-"description": "Make a new brand T1000 that inherits T800 (from second slide). T1000 never smiles. T1000 can restore (add a method restore that returns T1000 itself)",
-"package_name": "ale.java_training.classes",
-"test_name": "T1000Test",
-"class_name": "T1000",
-"preload" : "package ale.java_training.classes;
+"
+	},
+	{
+		"id": "jc_3",
+		"name": "Terminator: Successor",
+		"description": "Make a new brand T1000 that inherits T800 (from second slide). T1000 never smiles. T1000 can restore (add a method restore that returns T1000 itself)",
+		"package_name": "ale.java_training.classes",
+		"test_name": "T1000Test",
+		"class_name": "T1000",
+		"preload": "package ale.java_training.classes;
 
 public class T800 {
 
@@ -232,17 +238,18 @@ public class T800 {
     }
 }
 ",
-"code": "package ale.java_training.classes;
+		"code": "package ale.java_training.classes;
 // your class goes here
-"},
-{
-"id": "jc_4",
-"name": "Anonymizer",
-"description": "Make an anonymous implementation of given interface that returns passed string",
-"package_name": "ale.java_training.classes",
-"test_name": "AnonymizerTest",
-"class_name": "Anonymizer",
-"code": "package ale.java_training.classes;
+"
+	},
+	{
+		"id": "jc_4",
+		"name": "Anonymizer",
+		"description": "Make an anonymous implementation of given interface that returns passed string",
+		"package_name": "ale.java_training.classes",
+		"test_name": "AnonymizerTest",
+		"class_name": "Anonymizer",
+		"code": "package ale.java_training.classes;
 
 public interface Anonymizer {
 	
@@ -253,15 +260,16 @@ public interface Anonymizer {
 	}
 	
 }
-"},
-{
-"id": "jc_5",
-"name": "Ghost in the shell",
-"description": "Make an Ghost class that has random shell (but the same for whole post-life)",
-"package_name": "ale.java_training.classes",
-"test_name": "GhostTest",
-"class_name": "Ghost",
-"preload" : "package ale.java_training.classes;
+"
+	},
+	{
+		"id": "jc_5",
+		"name": "Ghost in the shell",
+		"description": "Make an Ghost class that has random shell (but the same for whole post-life)",
+		"package_name": "ale.java_training.classes",
+		"test_name": "GhostTest",
+		"class_name": "Ghost",
+		"preload": "package ale.java_training.classes;
 
 public interface Armored {
 
@@ -274,22 +282,23 @@ public interface Armored {
 		BOGU;
 	}
 }",
-"code": "package ale.java_training.classes;
+		"code": "package ale.java_training.classes;
 
 public class Ghost implements Armored {
 	
 	// go on
 		
 }
-"},
-{
-"id": "jc_7",
-"name": "* We are the robots",
-"description": "Make an implementation of robot that execute comands in queue. Use System.err.println() to print any debug information.",
-"package_name": "ale.java_training.classes",
-"test_name": "RobotTest",
-"class_name": "FancyRobot",
-"preload": "package ale.java_training.classes;
+"
+	},
+	{
+		"id": "jc_7",
+		"name": "* We are the robots",
+		"description": "Make an implementation of robot that execute comands in queue. Use System.err.println() to print any debug information.",
+		"package_name": "ale.java_training.classes",
+		"test_name": "RobotTest",
+		"class_name": "FancyRobot",
+		"preload": "package ale.java_training.classes;
 
 public interface Robot {
 	
@@ -305,7 +314,7 @@ public interface Robot {
 	
 }
 ",
-"code":"package ale.java_training.classes;
+		"code": "package ale.java_training.classes;
 
 public class FancyRobot implements Robot {
 	
@@ -322,7 +331,7 @@ public class FancyRobot implements Robot {
 		//serve
 	}
 }",
-"info":"#### Usage example
+		"info": "#### Usage example
 ```java
 	Robot r = new FancyRobot();
 	r.queueCommand(Commands.sing(\"We are the robots\"));
@@ -342,5 +351,6 @@ d[(0)(0)]b -->
 Ja tvoi rabotnik
 Ja tvoi sluga
 ```
-"}]
+"
+	}]
 }
