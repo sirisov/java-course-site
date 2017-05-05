@@ -165,14 +165,10 @@ public interface Named {
 "description": "Create a function that find a winner in a fight between two fighters. Each fighter takes turns attacking the other and whoever kills the other first is victorious.",
 "package_name": "ale.java_training.classes",
 "test_name": "FighterTest",
-"class_name": "Fighter",
-"code": "package ale.java_training.classes;
+"class_name": "FightClub",
+"preload": "package ale.java_training.classes;
 
 public class Fighter {
-	
-	public static String declareWinner(Fighter f1, Fighter f2, String firstAttacker) {
-		//here you go
-	}
 	
 	private final String name;
 	private final int health, damagePerAttack;
@@ -193,6 +189,15 @@ public class Fighter {
 	
 	public int getDPA() {
 		return damagePerAttack;
+	}
+	
+}",
+"code": "package ale.java_training.classes;
+
+public class FightClub {
+	
+	public static String declareWinner(Fighter f1, Fighter f2, String firstAttacker) {
+		//here you go
 	}
 	
 }
@@ -276,26 +281,11 @@ public class Ghost implements Armored {
 	// go on
 		
 }
-",
-"info" : "#### Armored interface with Shell enum are preloaded as following
-```java
-public interface Armored {
-
-	Shell getShell();
-
-	public static enum Shell{
-		LEATHER,
-		CHAINMAIL,
-		PLATE,
-		BOGU;
-	}
-}
-```
 "},
 {
 "id": "jc_7",
 "name": "* We are the robots",
-"description": "Make an implementation",
+"description": "Make an implementation of robot that execute comands in queue. Use System.err.println() to print any debug information.",
 "package_name": "ale.java_training.classes",
 "test_name": "RobotTest",
 "class_name": "FancyRobot",
@@ -310,6 +300,8 @@ public interface Robot {
 	void queueCommand(Command command);
 	
 	void execute();
+	
+	void execute(int n);
 	
 }
 ",
@@ -349,20 +341,6 @@ d[(0)(0)]b -->
 \\[(0)(0)]/
 Ja tvoi rabotnik
 Ja tvoi sluga
-```
-#### Preloaded code
-```java
-public interface Robot {
-	
-	public static interface Command {
-		void doIt();
-	}
-	
-	void queueCommand(Command command);
-	
-	void execute();
-	
-}
 ```
 "}]
 }

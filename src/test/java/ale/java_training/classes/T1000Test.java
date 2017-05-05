@@ -1,5 +1,6 @@
 package ale.java_training.classes;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 
@@ -19,6 +20,7 @@ public class T1000Test {
     assertFalse(t1000.isSmiling(), "T1000 should be born without smile");
     t1000.setSmile(true);
     assertFalse(t1000.isSmiling(), "T1000 should never smile");
+    assertEquals(t1000.restore(), t1000, "T1000 should restores into original");
   }
   
 }

@@ -17,7 +17,7 @@
             </li>
             <ul class="sub-menu collapse in" id="${group?replace(" ","_")}">
               <#list list as task>
-              <li><a href="#" data-id="${task.id}" data-information="${task.info!''}" data-description="${task.description}" data-name="${task.name?replace("* ", "")}" data-code='${task.code}'>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i> ${task.name?replace("*", "<i class='glyphicon glyphicon-star'></i>")}</a></li>
+              <li><a href="#" data-id="${task.id}" <#if task.preload?has_content>data-preload="${task.preload}"</#if> <#if task.info?has_content>data-information="${task.info}"</#if> data-description="${task.description}" data-name="${task.name?replace("* ", "")}" data-code='${task.code}'>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-menu-right"></i> ${task.name?replace("*", "<i class='glyphicon glyphicon-star'></i>")}</a></li>
               </#list>
             </ul>
             </#list>
@@ -52,6 +52,7 @@
               </div>
             </form>
             <p id="task_info"><!--Info--></p>
+            <p id="task_preload"><!--Preload--></p>
           </div>
           <div role="tabpanel" class="tab-pane" id="presentation_tab">
             <h4>Presentation</h4>
@@ -85,10 +86,22 @@
         var task = $(e.target);
         $('#training_tab h4').text(task.data('name'));
         $('#training_tab span').text(task.data('description'));
-        $('#task_info').html($('<div/>').html(task.data('information')));
-        $('#task_info pre code').each(function(i, block) {
-          hljs.highlightBlock(block);
-        });
+        $('#task_info').html($('<div/>'));
+        if (task.data('information')) {
+          $('#task_info div').html(task.data('information'));
+          $('#task_info pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        }
+        $('#task_preload').html($('<div/>'));
+        if (task.data('preload')) {
+          $('#task_preload').html('<pre><code class="language-java">' + task.data('preload') + '</code></pre>');
+          $('#task_preload').prepend('<h4>Preloaded</h4>');
+          $('#task_preload pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        }
+        
         $('#code_reset').on('click', function() {
           $('.alert').remove();
           editor.getDoc().setValue(task.data('code'));

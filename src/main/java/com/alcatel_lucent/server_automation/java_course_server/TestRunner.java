@@ -46,12 +46,15 @@ public class TestRunner {
       testng.addListener(tla);
       synchronized (System.out) {
         PrintStream out = System.out;
+        PrintStream err = System.err;
         try (OutputStream os = new ByteArrayOutputStream(); PrintStream sps = new PrintStream(os)) {
           System.setOut(sps);
+          System.setErr(sps);
           testng.run();
           jo.addProperty("output", os.toString());
         }
         System.setOut(out);
+        System.setErr(err);
       }
       jo.addProperty("short", "Passed: " + tla.getPassedTests().size() + ", Failed: " + tla.getFailedTests().size() + ", Skipped: " + tla.getSkippedTests().size());
       if (!tla.getFailedTests().isEmpty() || !tla.getSkippedTests().isEmpty()) {
