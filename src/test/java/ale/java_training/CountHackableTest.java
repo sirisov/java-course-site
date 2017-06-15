@@ -7,9 +7,6 @@ import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import org.testng.annotations.Test;
-
-@Test(timeOut = 5_000)
 public class CountHackableTest {
   
   public void countHackableTest_simple() {

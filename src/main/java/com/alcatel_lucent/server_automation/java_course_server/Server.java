@@ -54,7 +54,7 @@ public class Server {
   private static final Map<String, Object> RESOURCES = new ConcurrentHashMap<>();
   private static final Map<String, Map<String, String>> RESPONSES = new ConcurrentHashMap<>();
   private static final File RESP_FILE = RES_PATH.resolve(RESP_NAME).toFile();
-  private static final Gson GSON = new Gson();
+  static final Gson GSON = new Gson();
   private static WatchKey watch;
   
   static {
@@ -104,7 +104,7 @@ public class Server {
     reloadResource(Paths.get(RES_DIR + TASKS_FILE));
     reloadResource(RESP_FILE.toPath());
     watch = RES_PATH.register(FileSystems.getDefault().newWatchService(), ENTRY_MODIFY);
-    port(Integer.valueOf(System.getenv().getOrDefault("PORT", "8080")));
+    port(Integer.valueOf(System.getenv().getOrDefault("PORT", "8081")));
     Spark.staticFileLocation("/public");
     get("/", (req, res) -> renderFTL("index.ftl"));
     get("/codes", (req, res) -> renderFTL("codes.ftl"));

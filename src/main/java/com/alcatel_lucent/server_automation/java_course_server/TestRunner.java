@@ -10,10 +10,21 @@ import java.net.URLClassLoader;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 
+import javassist.ClassClassPath;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.bytecode.AnnotationsAttribute;
+import javassist.bytecode.ClassFile;
+import javassist.bytecode.ConstPool;
+import javassist.bytecode.annotation.Annotation;
+import javassist.bytecode.annotation.LongMemberValue;
+
 import com.alcatel_lucent.server_automation.java_course_server.CodeUtils.CompilationException;
+import com.diffplug.common.base.Errors;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -32,12 +43,31 @@ public class TestRunner {
     File outDir = new File("target" + File.separator + "compiled" + File.separator + UUID.randomUUID().toString());
     outDir.mkdirs();
     try {
-      URLClassLoader cl = new URLClassLoader(new URL[] {outDir.toURI().toURL()});
-      if (task.getPreload() != null) {
-        CodeUtils.compileClass(task.getPreload(), outDir);
+      URLClassLoader cl = new URLClassLoader(new URL[] {outDir.toURI().toURL()}, Thread.currentThread().getContextClassLoader());
+      if (task.preload != null) {
+        for (String preload : task.preload) {
+          CodeUtils.compileClass(preload, outDir);
+        }
       }
-      Class<?> classToTest = CodeUtils.compileAndLoad(task.getPackage_name() + '.' + task.getClass_name(), code, outDir, cl);
-      Class<?> testClass = CodeUtils.compileAndLoad(task.getPackage_name() + '.' + task.getTest_name(), TEST_CLASS_DIR.toPath().resolve(task.getPackage_name().replace('.', File.separatorChar) + File.separatorChar + task.getTest_name() + ".java").toFile() , outDir, cl);
+      // Compile sent class
+      Class<?> userClass = CodeUtils.compileAndLoad(task.getPackage_name() + '.' + task.getClass_name(), code, outDir, cl);
+      // Compile tests for class
+      //Class<?> testClass = CodeUtils.compileAndLoad(task.getPackage_name() + '.' + task.getTest_name(), TEST_CLASS_DIR.toPath().resolve(task.getPackage_name().replace('.', File.separatorChar) + File.separatorChar + task.getTest_name() + ".java").toFile() , outDir, cl);
+      CodeUtils.compileClass(TEST_CLASS_DIR.toPath().resolve(task.getPackage_name().replace('.', File.separatorChar) + File.separatorChar + task.getTest_name() + ".java").toFile() , outDir);
+      ClassPool pool = ClassPool.getDefault();
+      ClassClassPath cp = new ClassClassPath(userClass);
+      pool.insertClassPath(cp);
+      CtClass ctClass = Errors.rethrow().get(() -> pool.get(task.getPackage_name() + '.' + task.getTest_name()));
+      ClassFile classFile = ctClass.getClassFile();
+      ConstPool constPool = classFile.getConstPool();
+      AnnotationsAttribute attr = new AnnotationsAttribute(constPool, AnnotationsAttribute.visibleTag);
+      Annotation a = new Annotation("org.testng.annotations.Test", constPool);
+      a.addMemberValue("timeOut", new LongMemberValue(5_000L, constPool));
+      attr.setAnnotation(a);
+      classFile.addAttribute(attr);
+      pool.removeClassPath(cp);
+      Class testClass = ctClass.toClass(cl, userClass.getProtectionDomain());
+      ctClass.detach();
       jo.addProperty("compilation", "success");
       TestListenerAdapter tla = new TestListenerAdapter();
       TestNG testng = new TestNG();
@@ -51,7 +81,7 @@ public class TestRunner {
           System.setOut(sps);
           System.setErr(sps);
           testng.run();
-          jo.addProperty("output", os.toString());
+          jo.addProperty("output", StringEscapeUtils.escapeHtml4(os.toString()));
         }
         System.setOut(out);
         System.setErr(err);
@@ -72,17 +102,18 @@ public class TestRunner {
           }
           ps.println();
         });
-        jo.addProperty("result", baos.toString());
+        jo.addProperty("result", StringEscapeUtils.escapeHtml4(baos.toString()));
         ps.close();
       } else {
         jo.addProperty("test", "success");
       }
     } catch (CompilationException ex) {
       jo.addProperty("compilation", "error");
-      jo.addProperty("message", ex.toString());
+      jo.addProperty("message", StringEscapeUtils.escapeHtml4(ex.toString()));
     } catch (Exception ex) {
+      ex.printStackTrace();
       jo.addProperty("test", "error");
-      jo.addProperty("message", ex.toString());
+      jo.addProperty("message", StringEscapeUtils.escapeHtml4(ex.toString()));
     }
     try {
       FileUtils.deleteDirectory(outDir);

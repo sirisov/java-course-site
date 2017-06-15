@@ -9,7 +9,6 @@ import java.io.PrintStream;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 public class RobotTest {
 
@@ -39,7 +38,6 @@ public class RobotTest {
     } 
   }
   
-  @Test
   public void test_simple() throws IOException {
     Robot r = new FancyRobot();
     r.queueCommand(FancyRobot.Commands.sing("We are the robots"));
@@ -56,7 +54,6 @@ public class RobotTest {
                                   "Ja tvoi sluga" + lf, null);
   }
   
-  @Test
   public void test_clear() throws IOException {
     Robot r = new FancyRobot();
     r.queueCommand(FancyRobot.Commands.dance(FancyRobot.Movement.DOWN));
@@ -64,7 +61,6 @@ public class RobotTest {
     assertRobot(r, "", "Excecution should clear the queue:");
   }
   
-  @Test
   public void test_limited() throws IOException {
     Robot r = new FancyRobot();
     r.queueCommand(FancyRobot.Commands.sing("We are the robots"));
@@ -82,7 +78,6 @@ public class RobotTest {
     assertRobot(r, 1, "", "No more commands");
   }
   
-  @Test
   public void test_mixed() throws IOException {
     Robot r = new FancyRobot();
     r.queueCommand(FancyRobot.Commands.sing("We are the robots"));

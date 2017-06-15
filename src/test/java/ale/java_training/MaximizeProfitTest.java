@@ -5,9 +5,6 @@ import static org.testng.Assert.assertEquals;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import org.testng.annotations.Test;
-
-@Test(timeOut = 5_000)
 public class MaximizeProfitTest {
 
   public static int profitOf(int[] accounts, int n) {

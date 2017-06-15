@@ -4,11 +4,8 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.Random;
 
-import org.testng.annotations.Test;
-
 public class FighterTest {
 
-  @Test
   public void basicTests() {
     assertEquals(FightClub.declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Lew"), "Lew");
     assertEquals(FightClub.declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Harry"), "Harry");
@@ -18,7 +15,6 @@ public class FighterTest {
     assertEquals(FightClub.declareWinner(new Fighter("Jerry", 30, 3), new Fighter("Harald", 20, 5), "Harald"), "Harald");
   }
   
-  @Test
   public void randomTests() {
     String[] names = {"Willy", "Johnny", "Max", "Lui", "Marco", "Bostin", "Loyd", "Mark", "Cuban", "Lew", "Rocky", "Mario", "David", "Patrick", "Michael"};
     Random r = new Random();

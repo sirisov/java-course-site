@@ -2,9 +2,6 @@ package ale.java_training;
 
 import static org.testng.Assert.assertEquals;
 
-import org.testng.annotations.Test;
-
-@Test(timeOut = 5_000)
 public class FindAccountTest {
 
   public void test() {

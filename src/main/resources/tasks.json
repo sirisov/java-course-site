@@ -294,7 +294,7 @@ public class Ghost implements Armored {
 	{
 		"id": "jc_7",
 		"name": "* We are the robots",
-		"description": "Make an implementation of robot that execute comands in queue. Use System.err.println() to print any debug information.",
+		"description": "Make an implementation of robot that execute comands in queue. Use System.out.println to print commands. Use System.err.println to print debug information for yourself.",
 		"package_name": "ale.java_training.classes",
 		"test_name": "RobotTest",
 		"class_name": "FancyRobot",
@@ -308,8 +308,10 @@ public interface Robot {
 	
 	void queueCommand(Command command);
 	
+	//Execute all commands in the queue
 	void execute();
 	
+	//Execute first n command from the queue
 	void execute(int n);
 	
 }
@@ -350,6 +352,201 @@ d[(0)(0)]b -->
 \\[(0)(0)]/
 Ja tvoi rabotnik
 Ja tvoi sluga
+```
+"
+	}], 
+	"Generics": [{
+		"id": "jg_1",
+		"name": "Wrapper",
+		"description": "Make an Wrapper class that can wrap any object and return a Wrap with this object. See the usage below. <br/>
+		Note: Wrap class is not preloaded, you must create it as nested class",
+		"package_name": "ale.java_training.generics",
+		"test_name": "WrapperTest",
+		"class_name": "Wrapper",
+		"code": "package ale.java_training.generics;
+
+public class Wrapper {
+	
+}",
+		"info": "#### Usage example
+```java
+	Wrap<String> stringWrap = Wrapper.wrap(\"hello\");
+	String hello = stringWrap.get();
+```
+"
+	},
+	{
+		"id": "jg_2",
+		"name": "Printer",
+		"description": "Make an Printer interface that that can be loaded with appropriate materials (paper, plastic,..). <br/>
+		Add two implementation of this interface: Printer3D and PrinterPaper that uses plastic and paper accordingly. <br/>
+		load() method can be empty. <br/>
+		Note: to access Plastic and Paper classes precede it with Material. (i.e. Material.Plastic)",
+		"package_name": "ale.java_training.generics",
+		"test_name": "PrinterTest",
+		"class_name": "Printer",
+		"preload": "package ale.java_training.generics;
+
+public interface Material {
+	
+	public static class Paper implements Material {}
+	public static class Plastic implements Material {}
+	
+}		
+
+",
+		"code": "package ale.java_training.generics;
+		
+//Feel free to change everything but name.
+public interface Printer {
+	
+}",
+		"info": "#### Usage example
+```java
+	Printer3D p3d = new Printer3D();
+	p3d.load(new Plastic());
+```
+"
+	},
+	{
+		"id": "jg_3",
+		"name": "ServiceMan",
+		"description": "Make an ServiceMan class who can repair any paper printer. <br/>
+		repair() method can be empty",
+		"package_name": "ale.java_training.generics",
+		"test_name": "ServiceManTest",
+		"class_name": "ServiceMan",
+		"preload": ["package ale.java_training.generics;
+
+public interface Paper {
+	
+	public static class A4 implements Paper {}
+	public static class Photo implements Paper {}
+	public static class A0 implements Paper {}
+	
+}","package ale.java_training.generics;
+
+public interface Printer<T> {
+	
+	public static class HPLaserJet implements Printer<Paper.A4> {}
+	public static class Epson implements Printer<Paper.Photo> {}
+	public static class Plotter implements Printer<Paper.A0> {}
+	
+}"],
+		"code": "package ale.java_training.generics;
+		
+//Feel free to change everything but name.
+public class ServiceMan {
+	
+}",
+		"info": "#### Usage example
+```java
+	ServiceMan sm = new ServiceMan();
+	sm.repair(new Printer.HPLaserJet());
+	sm.repair(new Printer.Epson());
+	sm.repair(new Printer.Plotter());
+```
+"},
+	{
+		"id": "jg_4",
+		"name": "Accountant",
+		"description": "Make an Accountant class who buy requested office printer (with A4 paper load) type and give it to you. <br/>
+		buy() method can return null",
+		"package_name": "ale.java_training.generics",
+		"test_name": "AccountantTest",
+		"class_name": "Accountant",
+		"preload": ["package ale.java_training.generics;
+
+public interface Paper {
+	
+	public static class A4 implements Paper {}
+	public static class Photo implements Paper {}
+	public static class A0 implements Paper {}
+	
+}","package ale.java_training.generics;
+
+public interface Printer<T> {
+	
+	public static class HPLaserJet implements Printer<Paper.A4> {}
+	public static class Kyocera implements Printer<Paper.A4> {}
+	public static class Brother implements Printer<Paper.A4> {}
+	public static class Epson implements Printer<Paper.Photo> {}
+	public static class Plotter implements Printer<Paper.A0> {}
+	
+}"],
+		"code": "package ale.java_training.generics;
+		
+//Feel free to change everything but name.
+public class Accountant {
+	
+}",
+		"info": "#### Usage example
+```java
+	Accountant acc = new Accountant();
+	HPLaserJet hp = acc.buy(HPLaserJet.class);
+```
+"},
+	{
+		"id": "jg_5",
+		"name": "* Fluent generic",
+		"description": "Make an BaseFluent interface with method first() and ChildFluent interface extends BaseFluent with method second() so that it will be possible to call second() right after first().
+		See the usage below",
+		"package_name": "ale.java_training.generics",
+		"test_name": "FluentGenericTest",
+		"class_name": "BaseFluent",
+		"code": "package ale.java_training.generics;
+		
+//Feel free to change everything but names.
+public interface BaseFluent {
+	
+	// first() method here
+	
+	public interface ChildFluent extends BaseFluent {
+		
+		//second() method here
+		
+	}
+	
+}",
+		"info": "#### Usage example
+```java
+	ChildFluent cf = ...;
+	cf.first().second();
+```
+"
+	},
+	{
+		"id": "jg_6",
+		"name": "* Enum",
+		"description": "Make an method that accepts only enum that implements Some interface.",
+		"package_name": "ale.java_training.generics",
+		"test_name": "EnumTest",
+		"class_name": "GenericEnum",
+		"preload": "package ale.java_training.generics;
+		
+public interface Some {
+	
+	public enum SomeEnum implements Some {
+		FIRST, SECOND;
+	}
+	
+	public enum OtherEnum implements Some {
+		THIRD, FOURTH;
+	}
+	
+}",
+		"code": "package ale.java_training.generics;
+		
+//Feel free to change everything but names.
+public class GenericEnum {
+	
+	//add method getSomeEnum that accepts any enum that implement Some interface
+	
+}",
+		"info": "#### Usage example
+```java
+	GenericEnum.getSomeEnum(SomeEnum.FIRST);
+	GenericEnum.getSomeEnum(OtherEnum.THIRD);
 ```
 "
 	}]

@@ -4,9 +4,6 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Objects;
 
-import org.testng.annotations.Test;
-
-@Test(timeOut = 5_000)
 public class StrongPasswordTest {
   
   public void test() {

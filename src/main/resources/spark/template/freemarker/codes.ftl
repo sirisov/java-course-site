@@ -8,7 +8,7 @@
       <div class="menu-list">
         <ul id="menu-content" class="menu-content collapse out">
           <#list tasks as group, list>
-          <#if group != "Java classes">
+          <#if group != "Java8">
           <li>
             <a data-toggle="collapse" data-target="#${group?replace(" ","_")}">&nbsp;&nbsp;<i class="glyphicon glyphicon-list"></i> ${group} <span class="arrow glyphicon glyphicon-chevron-down"></span></a>
           </li>
@@ -59,7 +59,7 @@
       var ips = {"10.97.24.20" : "Sergey Irisov", "10.97.20.79" : "Olga Leonova", "10.97.24.17" : "Tatyana Speranskaya",
                  "10.97.20.139" : "Natalia Smirnova", "10.97.20.31": "Evgeny Efremenko", "10.97.24.22" : "Tatyana Gindysh",
                  "10.97.20.10" : "Kirill Shichalin", "10.97.20.135" : "Irina Germanova", "10.97.20.129" : "Sofiya Andreyuk",
-                 "10.97.20.62" : "Alexey Belyakov", "10.97.20.128" : "Julia Saenko"};
+                 "10.97.20.62" : "Alexey Belyakov", "10.97.20.128" : "Julia Saenko", "10.97.20.61" : "Anna Kulikova"};
       var resp = {<#list response as id, pair>"${id}":{<#list pair as ip, code>"${ip}":`${code}`, </#list>}, </#list>};
       $('#menu-content > ul > li > a').on('click', function(e) {
         $('#menu-content > ul > li').removeClass('active');
@@ -73,7 +73,7 @@
             .text("Default"));
         if (resp[task.data('id')]) {
           $.each(resp[task.data('id')], function(key, value) {
-            if (key !== "0:0:0:0:0:0:0:1") {
+            if ((key !== "0:0:0:0:0:0:0:1") && (key !== "127.0.0.1") ) {
               select
                 .append($('<option>', { value : value})
                 .text($.urlParam('anonymous') === "true" ? key : ips[key] || key)); 

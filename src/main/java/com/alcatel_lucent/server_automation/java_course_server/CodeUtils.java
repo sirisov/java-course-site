@@ -19,7 +19,7 @@ public class CodeUtils {
   
   private static final JavaCompiler JC = ToolProvider.getSystemJavaCompiler();
   private static final StandardJavaFileManager FM = JC.getStandardFileManager(null, null, null);
-  private static final Pattern NAME_PATTERN = Pattern.compile("^public (?:abstract )?(?:class|interface|enum) (\\w+) .*");
+  private static final Pattern NAME_PATTERN = Pattern.compile("^public (?:abstract )?(?:class|interface|enum) (\\w+)(?:<\\w+>)? .*");
   
   private static void compileClass(Iterable<? extends JavaFileObject> jfo, File outDir) throws CompilationException {
     StringWriter sw = new StringWriter();
@@ -41,6 +41,10 @@ public class CodeUtils {
   public static void compileClass(String source, File outDir) throws CompilationException {
     String name = NAME_PATTERN.matcher(Stream.of(source.split("\n")).filter(NAME_PATTERN.asPredicate()).findFirst().get()).replaceAll("$1");
     compileClass(singletonList(new JavaSourceFromString(name, source)), outDir);
+  }
+  
+  public static void compileClass(File source, File outDir) throws CompilationException {
+    compileClass(FM.getJavaFileObjects(source), outDir);
   }
   
   public static Class<?> compileAndLoad(String name, File source, File outDir, ClassLoader cl) throws CompilationException {

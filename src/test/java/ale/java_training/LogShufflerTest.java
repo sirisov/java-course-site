@@ -4,9 +4,6 @@ import static org.testng.Assert.assertEquals;
 
 import java.util.Arrays;
 
-import org.testng.annotations.Test;
-
-@Test(timeOut = 5_000)
 public class LogShufflerTest {
   
   public void test() {
