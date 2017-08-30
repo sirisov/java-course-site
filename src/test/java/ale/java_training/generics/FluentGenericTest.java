@@ -3,10 +3,13 @@ package ale.java_training.generics;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertFalse;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
+import org.assertj.core.internal.cglib.proxy.InvocationHandler;
+import org.assertj.core.internal.cglib.proxy.Proxy;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
@@ -20,6 +23,15 @@ public class FluentGenericTest {
     when(cf.second()).thenReturn(cf);
     cf.first().second();
     cf.first().second().first().first().second().second();
+  }
+  
+  public void test_custom() {
+    Object proxy = Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] {BaseFluent.class}, new InvocationHandler() {
+      @Override
+      public Object invoke(Object o, Method method, Object[] os) throws Throwable {
+        return method.invoke(o, os);
+      }
+    });
   }
   
   @Test(dependsOnMethods = "test_simple")
